@@ -140,6 +140,8 @@
 		"run ramargs; " \
 		"bootz ${loadaddr} ${rdaddr} ${fdtaddr}\0" \
 	"findfdt="\
+		"if test $board_name = ALMP; then " \
+			"setenv fdtfile am335x-almp.dtb; fi; " \
 		"if test $board_name = A335BONE; then " \
 			"setenv fdtfile am335x-bone.dtb; fi; " \
 		"if test $board_name = A335BNLT; then " \

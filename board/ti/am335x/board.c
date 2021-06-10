@@ -829,7 +829,8 @@ int board_late_init(void)
 		if (subtype_id == 'L')
 			name = "BBELITE";
 		else
-			name = "BBEN";
+			//name = "BBEN";
+			name = "ALMP";
 	}
 	set_board_info_env(name);
 
