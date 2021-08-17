@@ -88,7 +88,6 @@
 	func(MMC, mmc, 0) \
 	func(LEGACY_MMC, legacy_mmc, 0) \
 	func(MMC, mmc, 1) \
-	func(LEGACY_MMC, legacy_mmc, 1) \
 	func(NAND, nand, 0) \
 	BOOT_TARGET_USB(func) \
 	BOOT_TARGET_PXE(func) \
@@ -139,6 +138,7 @@
 	"ramboot=echo Booting from ramdisk ...; " \
 		"run ramargs; " \
 		"bootz ${loadaddr} ${rdaddr} ${fdtaddr}\0" \
+	"bootcmd_legacy_mmc1=setenv bootpart 1:1; load mmc 1:1 ${loadaddr} uEnv.txt; env import -t ${loadaddr} ${filesize}\0" \
 	"findfdt="\
 		"if test $board_name = ALMP; then " \
 			"setenv fdtfile am335x-almp.dtb; fi; " \
