@@ -432,7 +432,6 @@
 	"boot_prefixes=/ /boot/\0" \
 	"boot_scripts=boot.scr.uimg boot.scr\0" \
 	"boot_script_dhcp=boot.scr.uimg\0" \
-	BOOTENV_BOOT_TARGETS \
 	\
 	"boot_syslinux_conf=extlinux/extlinux.conf\0" \
 	"boot_extlinux="                                                  \
@@ -486,8 +485,6 @@
 			"fi; "                                            \
 		"done; "                                                  \
 		"setenv devplist\0"					  \
-	\
-	BOOT_TARGET_DEVICES(BOOTENV_DEV)                                  \
 	\
 	"distro_bootcmd=" BOOTENV_SET_SCSI_NEED_INIT                      \
 		BOOTENV_SET_NVME_NEED_INIT                                \

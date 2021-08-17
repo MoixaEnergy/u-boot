@@ -84,14 +84,17 @@
 # define BOOT_TARGET_DHCP(func)
 #endif
 
+#ifdef NEIL
 #define BOOT_TARGET_DEVICES(func) \
 	func(MMC, mmc, 0) \
 	func(LEGACY_MMC, legacy_mmc, 0) \
 	func(MMC, mmc, 1) \
+	func(LEGACY_MMC, legacy_mmc, 1) \
 	func(NAND, nand, 0) \
 	BOOT_TARGET_USB(func) \
 	BOOT_TARGET_PXE(func) \
 	BOOT_TARGET_DHCP(func)
+#endif
 
 #include <config_distro_bootcmd.h>
 
@@ -138,7 +141,11 @@
 	"ramboot=echo Booting from ramdisk ...; " \
 		"run ramargs; " \
 		"bootz ${loadaddr} ${rdaddr} ${fdtaddr}\0" \
-	"bootcmd_legacy_mmc1=setenv bootpart 1:1; load mmc 1:1 ${loadaddr} uEnv.txt; env import -t ${loadaddr} ${filesize}\0" \
+	"boot_targets=mmc0 legacy_mmc0 mmc1 legacy_mmc1\0" \
+	"bootcmd_mmc0=devnum=0; run mmc_boot\0" \
+	"bootcmd_mmc1=devnum=1; run mmc_boot\0" \
+	"bootcmd_legacy_mmc0=setenv mmcdev 0; setenv bootpart 0:2 ; run mmcboot\0" \
+	"bootcmd_legacy_mmc1=setenv bootpart 1:1; load mmc 1:1 ${loadaddr} uEnv.txt; env import -t ${loadaddr} ${filesize}; run findfdt; run init_console; run envboot; setenv mmcdev 1; setenv bootpart 1:${almp_part}; run mmcboot\0" \
 	"findfdt="\
 		"if test $board_name = ALMP; then " \
 			"setenv fdtfile am335x-almp.dtb; fi; " \
